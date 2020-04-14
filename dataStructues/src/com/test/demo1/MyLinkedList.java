@@ -83,6 +83,14 @@ public class MyLinkedList<T> implements NodeList<T> {
 	}
 
 	@Override
+	public T getTheFirst() {
+		return getTheFirstNode().val;
+	}
+	
+	private Node<T> getTheFirstNode() {
+		return head.next;
+	}
+	@Override
 	public T getTheLast() {
 		return tail == null ? null : tail.val;
 	}
@@ -112,7 +120,7 @@ public class MyLinkedList<T> implements NodeList<T> {
 	//首元素插入值
 	@Override
 	public boolean addFirst(T val) {
-		Node<T> tmp = head.next;//原首元素
+		Node<T> tmp = getTheFirstNode();//原首元素
 		head.next = new Node<T>(val);//新首元素
 		//新首元素  的  下一个 -> 原首元素
 		head.next.next = tmp;
@@ -167,9 +175,20 @@ public class MyLinkedList<T> implements NodeList<T> {
 		return index >=0 && index < size;
 	}
 	
+	//下面方法参考的源码
+	private boolean checkIsNull(T val) {
+		if(!isNull(val)) {
+			throw new NullPointerException();
+		}
+		return true;
+	}
+	private boolean isNull(T val) {
+		return val == null;
+	}
+	
 	
 	private Node<T> findNode(int index){
-		//checkLessIndex(index);//这里再写一边是因为add方法需要，防止自己学晕了
+		checkLessIndex(index);//这里再写一边是因为add方法需要，防止自己学晕了
 		if(index == 0) {
 			return head.next;
 		}else {
@@ -183,29 +202,76 @@ public class MyLinkedList<T> implements NodeList<T> {
 	}
 
 	@Override
-	public boolean removeFirst() {
-		// TODO Auto-generated method stub
+	public boolean update(int index, T val) {
+		
+		Node<T> node = findNode(index);
+		//直接更新
+		node.val = val;
+		
 		return false;
+	} 
+	
+	@Deprecated
+	private boolean update(Object val,T target) {
+		Node<T> tmp = head.next;//获取首节点
+		for(int count = 0;count<size;count++) {
+			//判断是否与目标值相对
+			if(val == tmp.val) {
+				tmp.val = target;
+			}
+			
+			tmp = tmp.next;
+			count++;
+		}
+		return false;
+	} 
+	
+	@Override
+	public boolean removeFirst() {
+		
+		Node<T> node = getTheFirstNode();
+		//头节点与首节点的下一个节点相连
+		head.next = node.next;
+		size--;
+		return true;
 	}
 
 	@Override
 	public boolean removeLast() {
-		// TODO Auto-generated method stub
+		//次尾节点 -2是因为size-1是尾节点，再-1才是次尾节点
+		Node<T> node = findNode(size-2);
+		//次尾节点的下一个值->null
+		node.next = null;
+		//修改尾节点
+		tail = node;
+		size--;
 		return false;
 	}
 
 	@Override
 	public boolean removeIndex(int index) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean remove(T val) {
-		// TODO Auto-generated method stub
-		return false;
+		if(index == 0) {
+			removeFirst();
+		}else if(index == size - 1){
+			removeLast();
+		}else {
+			remove(index);
+		}
+		return true;
 	} 
-
+	
+	private boolean remove(int index) {
+		
+		Node<T> preNode = findNode(index-1);
+		
+		Node<T> tmp = preNode.next;
+		
+		preNode.next = tmp.next;
+		
+		size--;
+		
+		return true;
+	}
 }
 
 

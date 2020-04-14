@@ -6,17 +6,21 @@ public interface NodeList<E> {
 	
 	public boolean add(E val);
 
+	public E getTheFirst();	
+	
 	public E getTheLast();	
 
 	public int size();
 	
-	public E getIndex(int t);
+	public E getIndex(int index);
 
-	public boolean addIndex(int i,E val);
+	public boolean addIndex(int index,E val);
 	
 	public boolean addFirst(E val);
 	
 	public boolean addLast(E val);
+	
+	public boolean update(int index,E val);
 	
 	public boolean removeFirst();
 	
@@ -24,6 +28,5 @@ public interface NodeList<E> {
 	
 	public boolean removeIndex(int index);
 	
-	public boolean remove(E val);
 	
 }

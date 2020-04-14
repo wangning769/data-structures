@@ -10,19 +10,24 @@ public class TestLinkedList {
 	@BeforeClass
 	public static void beforeMethod() {
 		myLinkedList = new MyLinkedList<Integer>();
+		myLinkedList.add(9527);
 		myLinkedList.add(11);
 		myLinkedList.add(22);
 		myLinkedList.add(33);
 		myLinkedList.add(44);
+		myLinkedList.add(8080);
 	}
 	
-	//¼òµ¥Ìí¼Ó²âÊÔ
+	//ç®€å•æµ‹è¯•
 	@Test
 	public void test01() {
-		Integer i = myLinkedList.getTheLast();
+		Integer i = myLinkedList.getTheFirst();
 		System.out.println(i);
+		Integer j = myLinkedList.getTheLast();
+		System.out.println(j);
 	}
 
+	//æ’å…¥æ“ä½œ
 	@Test
 	public void test02() {
 		Integer i = myLinkedList.getIndex(1);
@@ -30,14 +35,19 @@ public class TestLinkedList {
 		myLinkedList.addFirst(9527);
 		int size = myLinkedList.size();
 		myLinkedList.addIndex(size, 8080);
-		System.out.println(myLinkedList.toString()+"\t ÔªËØ¸öÊı"+myLinkedList.size());
+		System.out.println(myLinkedList.toString()+"\t å…ƒç´ ä¸ªæ•°:"+myLinkedList.size());
 		myLinkedList.addIndex(2, 8001);
-
-		
 	}
+	
+	@Test
+	public void test03() {
+		myLinkedList.removeIndex(2);
+		System.out.println(myLinkedList.toString()+"\t å…ƒç´ ä¸ªæ•°:"+myLinkedList.size());
+	}
+	
 	
 	@AfterClass
 	public static void aferMethod() {
-		System.out.print(myLinkedList.toString()+"\t ÔªËØ¸öÊı"+myLinkedList.size());
+		System.out.print(myLinkedList.toString()+"\t å…ƒç´ ä¸ªæ•°:"+myLinkedList.size());
 	}
 }
