@@ -204,7 +204,7 @@ public class MyLinkedList<T> implements NodeList<T> {
 	public boolean remove(T val) {
 		// TODO Auto-generated method stub
 		return false;
-	}
+	} 
 
 }
 
