@@ -1,5 +1,7 @@
 package com.test.array;
 
+import java.util.Arrays;
+
 import com.test.exception.MyException;
 
 /**
@@ -39,6 +41,55 @@ public class MyArray<T> implements Array<T> {
 		}
 		
 		@Override
+		public boolean add(int index, T e) {
+			//判断下标
+			checkLessIndex(index);
+			//判断是否已满
+			checkCapacity();
+			
+			//插入方法
+			addElement(index,e);
+			
+			return true;
+		}
+		
+		private boolean addElement(int index, T e) {
+			
+			//原数组下标
+			int srcIndex = index;
+			//目标数组下标
+			int destIndex = index +1;
+			//复制数据大小
+			int len = size - index;
+			System.arraycopy(elements, srcIndex, elements, destIndex, len);
+			//将index null -> e
+			elements[index] = e;
+			size++;
+			return true;
+		}
+		
+		
+		@Override
+		public boolean add(Array<T> arrays) {
+
+			int argSize = arrays.size();
+			//判断是否需要扩容
+			if(argSize>(elements.length-size)) {
+				int srcLen = elements.length;
+				growSize(srcLen, (elements.length+argSize));
+			}
+			//新数元素追加到里面,方便理解
+			Object destPos = elements;
+			//注意这里取的数组而非对象
+			Object src = arrays.toArray();
+			System.arraycopy(src, 0, destPos, size, argSize);
+			
+			size += arrays.size();
+			
+			return true;
+		}
+		
+		@Override
 		public T remove(int index) {
 			//校验下标位置
 			checkLessIndex(index);
@@ -65,6 +116,12 @@ public class MyArray<T> implements Array<T> {
 		
 		
 		@Override
+		public T[] toArray() {
+			//这里参考了源码O(∩_∩)O
+	        return (T[]) Arrays.copyOf(elements, size);
+		}
+		
+		@Override
 		public T get(int index) {
 			checkLessIndex(index);
 			return (T) elements[index];
@@ -83,20 +140,24 @@ public class MyArray<T> implements Array<T> {
 		private boolean checkCapacity() {
 			//如果需要扩容
 			if(isFull()) {
-				Object src = elements;
-				//扩容原来的二分之一
+				
 				int srcLen = elements.length;
 				//参考了一下源码，确实忘记扩展到原来一半咋写了，O(∩_∩)O
 				int newLen = srcLen + (srcLen>>1);
-				
-				Object[] dest = new Object[newLen];
-				
-				System.arraycopy(src, 0, dest, 0, size);
-				
-				elements = dest;
-				
+				//扩容扩容
+				growSize(srcLen,newLen);
 			}
 			return true;
+		}
+
+		private void growSize(int srcLen, int newLen) {
+			Object src = elements;
+			//扩容原来的二分之一
+			Object[] dest = new Object[newLen];
+			
+			System.arraycopy(src, 0, dest, 0, size);
+			
+			elements = dest;
 		}
 		
 		//判断有效数据是否已占整个数组
@@ -136,4 +197,5 @@ public class MyArray<T> implements Array<T> {
 				throw new MyException("数组创建参数异常"+size);
 			}
 		}
+
 }

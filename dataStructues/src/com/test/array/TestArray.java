@@ -1,5 +1,6 @@
 package com.test.array;
 
+import org.apache.commons.lang3.ArrayUtils;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -36,7 +37,22 @@ public class TestArray {
 	public void test03() {
 		int i =myArray.get(2);
 		System.out.println(i);
+		System.out.println(ArrayUtils.toString(myArray.toArray()));
 	}
+	
+	@Test
+	public void test04() {
+		
+		Array<Integer> myArray1 = new MyArray<Integer>();
+		myArray1.add(101);
+		myArray1.add(202);
+		myArray.add(myArray1);
+		
+		myArray.add(0,80);
+		myArray.add(4,8080);
+		System.out.println(ArrayUtils.toString(myArray.toArray()));
+	}
+
 	
 	
 	@AfterClass

@@ -19,8 +19,6 @@ public class TestStack {
 	//简单测试
 	@Test
 	public void test01() {
-		myStack.pop();
-		myStack.pop();
 		int i = myStack.lop(); 
 		System.out.println("栈顶元素:"+i);
 		 	
