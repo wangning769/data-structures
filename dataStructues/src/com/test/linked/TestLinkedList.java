@@ -1,5 +1,6 @@
-package com.test.demo1;
+package com.test.linked;
 
+import org.apache.commons.lang3.ArrayUtils;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -31,7 +32,7 @@ public class TestLinkedList {
 	@Test
 	public void test02() {
 		Integer i = myLinkedList.getIndex(1);
-		
+		System.out.println(i);
 		myLinkedList.addFirst(9527);
 		int size = myLinkedList.size();
 		myLinkedList.addIndex(size, 8080);
@@ -43,6 +44,9 @@ public class TestLinkedList {
 	public void test03() {
 		myLinkedList.removeIndex(2);
 		System.out.println(myLinkedList.toString()+"\t 元素个数:"+myLinkedList.size());
+		Object[] obj = myLinkedList.toArray();
+		
+		System.out.println(ArrayUtils.toString(obj));
 	}
 	
 	

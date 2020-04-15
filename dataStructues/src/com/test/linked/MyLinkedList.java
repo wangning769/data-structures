@@ -1,9 +1,9 @@
-package com.test.demo1;
+package com.test.linked;
 
 import java.util.concurrent.TimeUnit;
 
 /**
- * 单项链表
+ * 单向链表
  * @author wangning
  * @param <T>
  *
@@ -272,6 +272,34 @@ public class MyLinkedList<T> implements NodeList<T> {
 		
 		return true;
 	}
+
+	@Override
+	public Object[] toArray() { 
+		
+		if(isEmpty()) {
+			return null;
+		}
+		int i=0;
+		Object[] result = new Object[size];
+		Node<T> tmp = getHeadNode();
+		while(i<size) {
+			result[i] = tmp.next.val;
+			tmp = tmp.next;
+			i++;
+		}
+		return result;
+	}
+	
+	private Node<T> getHeadNode(){
+		return head;
+	}
+
+	@Override
+	public T reverse() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
 }
 
 
@@ -285,5 +313,5 @@ class Node<T>{
 		super();
 		this.val = val;
 	}
-	
+
 }

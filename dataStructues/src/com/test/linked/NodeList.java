@@ -1,6 +1,8 @@
-package com.test.demo1;
+package com.test.linked;
 
-public interface NodeList<E> {
+import com.test.common.CommonInterface;
+
+public interface NodeList<E> extends CommonInterface<E> {
 
 	public boolean isEmpty();
 	
@@ -28,5 +30,6 @@ public interface NodeList<E> {
 	
 	public boolean removeIndex(int index);
 	
+	public Object[] toArray();
 	
 }
