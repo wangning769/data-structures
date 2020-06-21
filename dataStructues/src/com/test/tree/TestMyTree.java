@@ -1,21 +1,21 @@
-package com.test.hash;
+package com.test.tree;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-public class TestMyHashMap {
+public class TestMyTree {
 
-	public static Map<String,String> myHashMap;
+	public static Tree<Integer> myTree;
 	@BeforeClass
 	public static void beforeMethod() {
-		myHashMap = new MyHashMap<String,String>();
+		myTree = new MyBinaryTree<Integer>();
 	}
 	
 	//简单测试
 	@Test
 	public void test01() {
-		myHashMap.put("aa", "123");
+		
 	}
 
 	//插入操作
@@ -30,6 +30,6 @@ public class TestMyHashMap {
 	
 	@AfterClass
 	public static void aferMethod() {
-		System.out.print(myHashMap.toString()+"\t 元素个数:"+myHashMap.size());
+		System.out.print(myTree.toString()+"\t 元素个数:"+myTree.size());
 	}
 }
